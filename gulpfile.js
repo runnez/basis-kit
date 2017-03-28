@@ -109,19 +109,20 @@ gulp.task('templates', function() {
 });
 
 gulp.task('deploy', function() {
-  var gulpSSH = new GulpSSH({
-    ignoreErrors: false,
-    sshConfig: {
-      host: 'hw01.improvemedia.ru',
-      port: 2233,
-      username: 'inmyroom',
-      privateKey: fs.readFileSync('/Users/user/.ssh/id_rsa')
-    }
-  })
-
   runSequence('clean', 'build', 'productionJS', 'productionCSS', 'productionIMG', 'gzip', function() {
-    gulp.src('./build/**')
-      .pipe(gulpSSH.dest('/srv/remontsvtb24.inmyroom.ru'))
+    ['app1.improvemedia.ru', 'app2.improvemedia.ru'].forEach(function(host) {
+      var gulpSSH = new GulpSSH({
+        ignoreErrors: false,
+        sshConfig: {
+          host: host,
+          username: 'promo_km',
+          privateKey: fs.readFileSync('/Users/user/.ssh/id_rsa')
+        }
+      })
+
+      gulp.src('./build/**')
+        .pipe(gulpSSH.dest('/srv/heinz-sauces.kitchenmag.ru'))
+    })
   })
 })
 
