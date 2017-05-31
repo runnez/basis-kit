@@ -1,6 +1,7 @@
 // You can use 'sprite' task to build
-// Need to package.json "gulp.spritesmith": "^6.2.1", "merge-stream": "^1.0.0"
-// And uncoment line in watch task
+// 1. Need to package.json "gulp.spritesmith": "^6.2.1", "merge-stream": "^1.0.0"
+// 2. Create ./src/icons folder
+// 3. And add // gulp.watch(config.sprite, g['sprite']); line in watch task
 
 var gulp = require('gulp');
 var connect = require('gulp-connect');
@@ -36,7 +37,6 @@ gulp.task('watch', function() {
   gulp.watch(config.pages.watch, ['pages']);
   gulp.watch(config.images,      ['images']);
   gulp.watch(config.fonts,       ['fonts']);
-  // gulp.watch(config.sprite,      ['sprite']);
 
   watch('build/**').pipe(connect.reload());
 });
