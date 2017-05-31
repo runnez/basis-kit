@@ -1,7 +1,7 @@
 {
-  "name": "vtb_promo",
+  "name": "YourProject",
   "version": "1.0.0",
-  "description": "",
+  "description": "Description of your project",
   "main": "main.js",
   "dependencies": {},
   "devDependencies": {
