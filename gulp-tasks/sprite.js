@@ -1,6 +1,5 @@
-// Add to package.json  "gulp.spritesmith": "^6.2.1", "merge-stream": "^1.0.0"
-var spritesmith = require('gulp.spritesmith');
-var merge = require('merge-stream');
+// var spritesmith = require('gulp.spritesmith');
+// var merge = require('merge-stream');
 
 module.exports = function(gulp, config) {
   var spriteData = gulp.src(config.sprite).pipe(spritesmith({

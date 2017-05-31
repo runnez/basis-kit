@@ -1,3 +1,7 @@
+// You can use 'sprite' task to build
+// Need to package.json "gulp.spritesmith": "^6.2.1", "merge-stream": "^1.0.0"
+// And uncoment line in watch task
+
 var gulp = require('gulp');
 var connect = require('gulp-connect');
 var watch = require('gulp-watch');
@@ -8,7 +12,6 @@ var config = {
     build: './src/pages/*.jade',
     watch: './src/pages/**',
   },
-  templates: './src/templates/*.jade',
   images: './src/images/*',
   fonts: './src/fonts/*',
   sprite: './src/icons/*.png'
@@ -20,8 +23,7 @@ require('gulp-require-tasks')({
 });
 
 gulp.task('default', ['build', 'watch', 'server']);
-// you can add 'sprite' task to build
-gulp.task('build', ['styles', 'pages', 'scripts', 'templates', 'images', 'fonts']);
+gulp.task('build', ['styles', 'pages', 'scripts', 'images', 'fonts']);
 
 gulp.task('server', function() {
  connect.server({
@@ -32,11 +34,9 @@ gulp.task('server', function() {
 
 gulp.task('watch', function() {
   gulp.watch(config.pages.watch, ['pages']);
-  gulp.watch(config.templates,   ['templates']);
   gulp.watch(config.images,      ['images']);
   gulp.watch(config.fonts,       ['fonts']);
   // gulp.watch(config.sprite,      ['sprite']);
 
   watch('build/**').pipe(connect.reload());
 });
-

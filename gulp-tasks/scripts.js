@@ -1,7 +1,7 @@
 var browserify = require('browserify');
 var watchify = require('watchify');
 var gulp = require('gulp');
-var jadeify = require("jadeify");
+var pugify = require("pugify");
 var source = require('vinyl-source-stream');
 var watch = require('gulp-watch');
 
@@ -10,7 +10,7 @@ var customOpts = {
   debug: true
 };
 var opts = Object.assign({}, watchify.args, customOpts);
-var b = watchify(browserify(opts)).transform('jadeify');
+var b = watchify(browserify(opts)).transform(pugify);
 b.on('update', bundle);
 
 function bundle() {
