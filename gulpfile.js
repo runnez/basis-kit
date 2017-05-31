@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var jade = require('gulp-jade');
+var jade = require('gulp-pug');
 var htmlmin = require('gulp-htmlmin');
 var sass = require('gulp-sass');
 var connect = require('gulp-connect');
@@ -7,7 +7,6 @@ var runSequence = require('run-sequence');
 var watch = require('gulp-watch');
 var declare = require('gulp-declare');
 var concat = require('gulp-concat');
-var coffee = require('gulp-coffee');
 var source = require('vinyl-source-stream');
 var browserify = require('browserify');
 var spritesmith = require('gulp.spritesmith');
@@ -69,9 +68,7 @@ gulp.task('pages', function() {
 
 gulp.task('scripts', function() {
   browserify({
-    entries: './src/scripts/main.coffee',
-    extensions: ['.coffee'],
-    transform: ["coffeeify"]
+    entries: './src/scripts/main.js'
   }).bundle()
     .on('error', function (err) {
       console.log(err.toString());
