@@ -14,13 +14,8 @@ require('gulp-require-tasks')({
 });
 
 gulp.task('default', ['build', 'watch', 'server']);
-gulp.task('build', ['styles', 'pages', 'images', 'fonts']);
-gulp.task('manifest', function() {
-  return runSequence(
-    'production:digest',
-    'production:replace'
-  )
-})
+gulp.task('build', ['styles', 'scripts', 'pages', 'images', 'fonts']);
+gulp.task('minify', ['production:js', 'production:css', 'production:img'])
 
 gulp.task('server', function() {
  connect.server({

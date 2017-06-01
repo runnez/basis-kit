@@ -2,16 +2,15 @@ var runSequence = require('run-sequence');
 var GulpSSH = require('gulp-ssh');
 var fs = require('fs');
 
-module.exports = function(gulp, config) {
+module.exports = (gulp, config) => {
   return runSequence(
     'clean',
     'build',
-    'production:js',
-    'production:css',
-    'production:img',
-    'production:gzip',
-    function() {
-      ['app1.improvemedia.ru', 'app2.improvemedia.ru'].forEach(function(host) {
+    'minify',
+    'deploy:digest',
+    'deploy:gzip',
+    () => {
+      ['app1.improvemedia.ru', 'app2.improvemedia.ru'].forEach((host) => {
         var gulpSSH = new GulpSSH({
           ignoreErrors: false,
           sshConfig: {
