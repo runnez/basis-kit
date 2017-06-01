@@ -1,5 +1,6 @@
 var runSequence = require('run-sequence');
 var GulpSSH = require('gulp-ssh');
+var fs = require('fs');
 
 module.exports = function(gulp, config) {
   return runSequence(
@@ -15,13 +16,13 @@ module.exports = function(gulp, config) {
           ignoreErrors: false,
           sshConfig: {
             host: host,
-            username: 'promo_km',
+            username: 'promo_imr',
             privateKey: fs.readFileSync('/Users/user/.ssh/id_rsa')
           }
         })
 
         gulp.src('./build/**')
-          .pipe(gulpSSH.dest('/srv/heinz-sauces.kitchenmag.ru'))
+          .pipe(gulpSSH.dest('/srv/miele.inmyroom.ru'))
       })
     }
   )

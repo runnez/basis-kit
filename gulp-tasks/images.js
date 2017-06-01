@@ -1,4 +1,4 @@
 module.exports = function(gulp, config) {
-  return gulp.src(config.images)
+  return gulp.src('./src/images/*')
     .pipe(gulp.dest('build/assets'))
 }

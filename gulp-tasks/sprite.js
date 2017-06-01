@@ -2,7 +2,7 @@
 // var merge = require('merge-stream');
 
 module.exports = function(gulp, config) {
-  var spriteData = gulp.src(config.sprite).pipe(spritesmith({
+  var spriteData = gulp.src('./src/icons/*.png').pipe(spritesmith({
     imgName: 'sprite.png',
     cssName: 'sprite.css',
     padding: 6,

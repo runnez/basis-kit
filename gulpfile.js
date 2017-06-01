@@ -1,30 +1,26 @@
 // You can use 'sprite' task to build
 // 1. Need to package.json "gulp.spritesmith": "^6.2.1", "merge-stream": "^1.0.0"
 // 2. Create ./src/icons folder
-// 3. And add // gulp.watch(config.sprite, g['sprite']); line in watch task
 
 var gulp = require('gulp');
 var connect = require('gulp-connect');
 var watch = require('gulp-watch');
-var fs = require('fs');
-
-var config = {
-  pages: {
-    build: './src/pages/*.jade',
-    watch: './src/pages/**',
-  },
-  images: './src/images/*',
-  fonts: './src/fonts/*',
-  sprite: './src/icons/*.png'
-};
+var runSequence = require('run-sequence');
+var env = {};
 
 require('gulp-require-tasks')({
   gulp: gulp,
-  arguments: [config]
+  arguments: [env]
 });
 
 gulp.task('default', ['build', 'watch', 'server']);
-gulp.task('build', ['styles', 'pages', 'scripts', 'images', 'fonts']);
+gulp.task('build', ['styles', 'pages', 'images', 'fonts']);
+gulp.task('manifest', function() {
+  return runSequence(
+    'production:digest',
+    'production:replace'
+  )
+})
 
 gulp.task('server', function() {
  connect.server({
@@ -34,9 +30,11 @@ gulp.task('server', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(config.pages.watch, ['pages']);
-  gulp.watch(config.images,      ['images']);
-  gulp.watch(config.fonts,       ['fonts']);
+  watch('./src/styles/**', () => gulp.start('styles'));
+  watch('./src/images/**', () => gulp.start('images'));
+  watch('./src/pages/**', () => gulp.start('pages'));
+  watch('./src/fonts/**', () => gulp.start('fonts'));
+  watch('./src/scripts/main.js', () => gulp.start('scripts'));
 
   watch('build/**').pipe(connect.reload());
 });
